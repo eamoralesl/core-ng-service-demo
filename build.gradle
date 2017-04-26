@@ -1,0 +1,44 @@
+group 'gt.punto'
+version '1.0-SNAPSHOT'
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.3'
+    distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://neowu.github.io/maven-repo/'
+    }
+}
+
+def coreNGVersion = '4.12.1'
+def kafkaVersion = '0.10.2.0'
+
+dependencies {
+    compile(
+            "core.framework:core-ng:${coreNGVersion}",
+            "core.framework:core-ng-api:${coreNGVersion}",
+            'org.apache.logging.log4j:log4j-api:2.7'
+
+    )
+    runtime(
+            "org.apache.kafka:kafka-clients:${kafkaVersion}"
+
+    )
+
+    testCompile(
+            "core.framework:core-ng-test:${coreNGVersion}"
+    )
+    mainClassName = 'Main'
+
+}
+
+
